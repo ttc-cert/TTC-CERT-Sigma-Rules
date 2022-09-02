@@ -1,6 +1,5 @@
-title: Cobalt Strike Beaconฺ Traffic Profile from bulksms.ais-wsus[.]com's Host
-id: 94bad2d4-239c-11ed-861d-0242ac120002
-status: test
+title: "Cobalt Strike Beaconฺ Traffic Profile from bulksms.ais-wsus[.]com's Host"
+id: "94bad2d4-239c-11ed-861d-0242ac120002"
 version: "1.0"
 first_imported: "2020-08-24"
 last_modified: "2020-08-24"
