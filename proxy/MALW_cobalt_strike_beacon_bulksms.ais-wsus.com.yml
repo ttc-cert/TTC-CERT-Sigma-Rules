@@ -1,0 +1,58 @@
+title: "Cobalt Strike Beaconฺ Traffic Profile from bulksms.ais-wsus[.]com's Host"
+id: "94bad2d4-239c-11ed-861d-0242ac120002"
+version: "1.0"
+first_imported: "2020-08-24"
+last_modified: "2020-08-24"
+status: "RELEASED"
+sharing: "TLP:WHITE"
+author: "TTC-CERT"
+description: "Detects Cobalt Strike Beaconฺ Traffic Profile from bulksms.ais-wsus[.]com"
+category: "Cobalt Strike Beacon"
+hash: "72e61c4b1c3cd9381b59bf938e70247aab733ffc0ce12d67864e347cf8b25372"
+hash: "1574f5538bc5203221968979da3d1831f11ab5515d75cb7af8ff45d2c3d02d6c"
+logsource:
+  category: proxy
+detection:
+  selection1:
+    c-useragent: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0; Avant Browser)'
+    cs-method: 'GET'
+    cs-host: 'bulksms.ais-wsus.com'
+  selection2:
+    c-useragent: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0; Avant Browser)'
+    cs-method: 'POST'
+    c-uri: '/78dc91f1A716DBBAA9E4E12C884C1CB1C27FFF2BEEED7DF1'
+    cs-host: 'bulksms.ais-wsus.com'
+  selection3:
+    c-useragent: 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; .NET CLR 1.1.4322)'
+    cs-method: 'GET'
+    cs-host: 'bulksms.ais-wsus.com'
+  selection4:
+    c-useragent: 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; .NET CLR 1.1.4322)'
+    cs-method: 'POST'
+    c-uri: '/78dc91f1A716DBBAA9E4E12C884C1CB1C27FFF2BEEED7DF1'
+    cs-host: 'bulksms.ais-wsus.com'
+  selection5:
+    c-useragent: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0; Avant Browser)'
+    cs-method: 'GET'
+    cs-host: '5.188.34.247'
+  selection6:
+    c-useragent: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0; Avant Browser)'
+    cs-method: 'POST'
+    c-uri: '/78dc91f1A716DBBAA9E4E12C884C1CB1C27FFF2BEEED7DF1'
+    cs-host: '5.188.34.247'
+  selection7:
+    c-useragent: 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; .NET CLR 1.1.4322)'
+    cs-method: 'GET'
+    cs-host: '5.188.34.247'
+  selection8:
+    c-useragent: 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; .NET CLR 1.1.4322)'
+    cs-method: 'POST'
+    c-uri: '/78dc91f1A716DBBAA9E4E12C884C1CB1C27FFF2BEEED7DF1'
+    cs-host: '5.188.34.247'
+  condition: selection1 or selection2 or selection3 or selection4 or selection5 or selection6 or selection7 or selection8
+falsepositives:
+  - Unknown
+level: high
+tags:
+  - attack.defense_evasion
+  - attack.command_and_control

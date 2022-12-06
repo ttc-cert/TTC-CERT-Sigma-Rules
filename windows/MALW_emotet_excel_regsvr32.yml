@@ -1,0 +1,27 @@
+title: "Detection of initial access of Emotet TTPs with Microsoft Microsoft Excel and Regsvr32"
+id: e911e414-334e-11ed-a261-0242ac120002
+version: "1.0"
+first_imported: "2020-09-13"
+last_modified: "2020-09-13"
+status: "RELEASED"
+sharing: "TLP:WHITE"
+author: "TTC-CERT"
+description: "Detection of Regsvr32 is executed with the parent process of Microsoft Microsoft Excel"
+category: "System Binary Proxy Execution: Regsvr32"
+hash: "d8eeafa5123ec8ca9d27ef8119ec64f6b7a738610986020ce37732f5a7386e8b"
+references:
+    - https://tria.ge/220913-mdv3dabbbl/
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image|endswith: '\EXCEL.EXE'
+        CommandLine|contains: '..\..\..\Windows\System32\regsvr32.exe '
+    condition: selection
+fields:
+    - CommandLine
+    - ParentCommandLine
+falsepositives:
+    - Unknown
+level: high

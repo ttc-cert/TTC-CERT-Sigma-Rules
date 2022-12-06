@@ -1,0 +1,25 @@
+title: "Detection of generic URL redirect"
+id: "9fe1cfbc-2d17-11ed-a261-0242ac120002"
+version: "1.0"
+first_imported: "2020-09-06"
+last_modified: "2020-09-06"
+status: "RELEASED"
+sharing: "TLP:WHITE"
+author: "TTC-CERT"
+description: "Detects generic URL redirect pattern =http(s)://"
+category: "URL redirect"
+references: "https://medium.com/@p.matkovski/detection-of-phishing-redirects-a2c40482264e"
+logsource:
+  category: proxy
+detection:
+  selection1:
+    c-uri|contains: '=http://'
+  selection2:
+    c-uri|contains: '=https://'
+  condition: selection1 or selection2
+falsepositives:
+  - Unknown
+level: high
+tags:
+  - attack.malicious_link
+  - attack.t1204.001
