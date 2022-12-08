@@ -4,7 +4,7 @@ version: 1.0
 first_imported: 2022-11-25
 last_modified: 2022-11-25
 status: RELEASED
-sharing: TLP:GREEN
+sharing: TLP:CLEAR
 author: TTC-CERT
 description: Bookworm malware use MSI file to drop legitimate file and malicious DLL onto filesystem, also the MSI file contain powershell loader and will send the beacon to C2
 category: Malware
