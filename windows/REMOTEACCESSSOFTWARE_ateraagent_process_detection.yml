@@ -1,0 +1,23 @@
+title: Atera Agent - Process Detection
+id: 62232e91-900b-469b-a6c8-53b095216fb8 
+version: 1.0
+first_imported: 2023-01-04
+last_modified: 2023-01-04
+status: RELEASED
+sharing: TLP:CLEAR
+author: TTC-CERT
+description: This rule triggers an alert if the SIEM system detects a Atera Agent process running on a host.
+references: https://www.atera.com/
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection1:
+    EventID: 4688
+    ProcessName: AteraAgent*
+  selection2:
+    Image|contains: '\AteraAgent.exe'
+  condition: selection1 or selection2
+falsepositives:
+- This rule may trigger false positives if the Atera Agent processes is running on a host for legitimate purposes.
+level: high
