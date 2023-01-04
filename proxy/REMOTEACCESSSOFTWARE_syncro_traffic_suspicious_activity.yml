@@ -1,0 +1,21 @@
+title: Syncro Traffic - Suspicious Activity
+id: 7ce04087-ddd5-4082-a5e0-ce73a6994c94
+version: 1.0
+first_imported: 2023-01-04
+last_modified: 2023-01-04
+status: RELEASED
+sharing: TLP:CLEAR
+author: TTC-CERT
+description: This rule triggers an alert if the proxy log shows traffic from any domain belong to Syncro.
+reference: https://syncromsp.com/
+logsource:
+  category: proxy
+detection:
+  selection:
+    - r-dns|endswith: '.syncroapi.com'
+    - r-dns|endswith: '.admin.syncroapi.com'
+    - r-dns|endswith: '.syncromsp.com'
+  condition: selection
+falsepositives:
+- This rule may trigger false positives if the domain are used for legitimate purposes.
+level: high
