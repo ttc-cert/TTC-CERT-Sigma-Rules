@@ -1,0 +1,25 @@
+title: ScreenConnect - Process or Service Detection
+id: 489a46c9-30df-4231-8a14-acee6766598d
+version: 1.0
+first_imported: 2023-01-04
+last_modified: 2023-01-04
+status: RELEASED
+sharing: TLP:CLEAR
+author: TTC-CERT
+description: This rule triggers an alert if the SIEM system detects a ScreenConnect process or service running on a host.
+references: https://control.connectwise.com/
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection1:
+    EventID: 4688
+    ProcessName: ScreenConnect*
+  selection2:
+    - Image|contains: '\ScreenConnect.Client.exe'
+    - Image|contains: '\ScreenConnect.ClientService.exe'
+    - Image|contains: '\ScreenConnect.Service.exe'
+  condition: selection1 or selection2
+falsepositives:
+- This rule may trigger false positives if the ScreenConnect processes or services are running on a host for legitimate purposes.
+level: high
