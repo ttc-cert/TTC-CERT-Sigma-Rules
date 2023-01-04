@@ -1,0 +1,35 @@
+title: Remote Utilities Process Creation Detection
+id: 9306e0af-0f0f-4323-969b-3b0c342a6afc
+version: 1.0
+first_imported: 2023-01-04
+last_modified: 2023-01-04
+status: RELEASED
+sharing: TLP:CLEAR
+author: TTC-CERT
+description: This rule detects the creation of the Remote Utilities process on a host machine.
+reference: https://www.remoteutilities.com/
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection1:
+    EventID: 4688
+    ProcessName: RemoteUtilities*
+  selection2:
+    EventID: 4688
+    ProcessName: rfusclient.exe
+  selection3:
+    EventID: 4688
+    ProcessName: rutserv.exe
+  selection4:
+    ParentImage|endswith: '\rfusclient.exe'
+    Image|contains: '\Remote Utilities - Host\'
+    CommandLine|contains: '\Remote Utilities - Host\'
+  selection5:
+    ParentImage|endswith: '\rutserv.exe'
+    Image|contains: '\Remote Utilities - Host\'
+    CommandLine|contains: '\Remote Utilities - Host\'
+  condition: selection1 or selection2 or selection3 or selection4 or selection5
+falsepositives:
+- False positives may occur if other software applications create similar processes with similar names.
+level: high
