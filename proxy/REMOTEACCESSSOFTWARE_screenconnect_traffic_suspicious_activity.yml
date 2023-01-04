@@ -1,0 +1,27 @@
+title: ScreenConnect Traffic - Suspicious Activity
+id: f2344b31-4a68-4ed0-bf59-a40f62c94c4e
+version: 1.0
+first_imported: 2023-01-04
+last_modified: 2023-01-04
+status: RELEASED
+sharing: TLP:CLEAR
+author: TTC-CERT
+description: This rule triggers an alert if the proxy log shows traffic from the specified IP addresses or any domain belong to ScreenConnect.
+reference: https://control.connectwise.com/
+logsource:
+  category: proxy
+detection:
+  selection:
+    - cs-host|startswith: '198.22.253.' #198.22.253.0/24
+    - cs-host: 52.202.11.141
+    - r-dns|endswith: '.connectwise.com'
+    - r-dns|endswith: '.connectwise.net'
+    - r-dns|endswith: '.continuum.net'
+    - r-dns|endswith: '.itsupport247.net'
+    - r-dns|endswith: '.myconnectwise.net'
+    - r-dns|endswith: '.screenconnect.com'
+    - r-dns|endswith: '.connectwise.com.cdn.cloudflare.net'
+  condition: selection
+falsepositives:
+- This rule may trigger false positives if the IP addresses or domain are used for legitimate purposes.
+level: high
