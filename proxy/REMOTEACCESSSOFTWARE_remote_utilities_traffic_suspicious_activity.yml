@@ -1,0 +1,22 @@
+title: Remote Utilities Traffic - Suspicious Activity
+id: 08758fe9-251f-4057-b4fa-1aa6b7f57de5
+version: 1.0
+first_imported: 2023-01-04
+last_modified: 2023-01-04
+status: RELEASED
+sharing: TLP:CLEAR
+author: TTC-CERT
+description: This rule triggers an alert if the proxy log shows traffic from the specified IP addresses or any domain ending in "*.remoteutilities.com".
+reference: https://www.remoteutilities.com/
+logsource:
+  category: proxy
+detection:
+  selection:
+    - cs-host: 64.20.61.146
+    - cs-host: 216.158.232.18
+    - cs-host: 66.23.226.254
+    - r-dns|endswith: '.remoteutilities.com'
+  condition: selection
+falsepositives:
+- This rule may trigger false positives if the IP addresses or domain are used for legitimate purposes.
+level: high
