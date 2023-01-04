@@ -1,0 +1,19 @@
+title: Atera Agent Traffic - Suspicious Activity
+id: b5123267-731f-4b5f-a4ed-44564f35e233
+version: 1.0
+first_imported: 2023-01-04
+last_modified: 2023-01-04
+status: RELEASED
+sharing: TLP:CLEAR
+author: TTC-CERT
+description: This rule triggers an alert if the proxy log shows traffic from the specified domain belong to Atera Agent.
+reference: https://www.atera.com/
+logsource:
+  category: proxy
+detection:
+  selection:
+    - r-dns|endswith: '.atera.com'
+  condition: selection
+falsepositives:
+- This rule may trigger false positives if the domain are used for legitimate purposes.
+level: high
