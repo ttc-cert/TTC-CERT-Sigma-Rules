@@ -1,0 +1,29 @@
+title: Suspicious Msiexec Quiet Install For Magniber Ransomware
+id: 6fdb545b-1b3e-442a-9393-81b6e54a0742
+version: 1.0
+first_imported: 2023-01-18
+last_modified: 2023-01-18
+status: RELEASED
+sharing: TLP:CLEAR
+author: TTC-CERT
+description: This rule triggers an alert if the adversaries abuse msiexec.exe to proxy execution of malicious payloads such as Magniber Ransomware.
+references:
+    - https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec
+    - https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1218.007/T1218.007.md
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection1:
+        - Image|endswith: '\msiexec.exe'
+        - OriginalFileName: 'msiexec.exe'
+    selection2:
+        CommandLine|contains:
+            - '/i'
+    selection3:
+        CommandLine|contains:
+            - '/qn'
+    condition: all of selection*
+falsepositives:
+    - Legitimate script
+level: medium
