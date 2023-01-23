@@ -1,0 +1,19 @@
+title: Cobalt Strike Beaconฺ Traffic From Malicious IP - Suspicious Activity
+id: 1d7d72c5-00e4-470d-b62a-68dba0521884
+version: 1.0
+first_imported: 2023-01-23
+last_modified: 2023-01-23
+status: RELEASED
+sharing: TLP:CLEAR
+author: TTC-CERT
+description: This rule triggers an alert if the proxy log shows cobalt strike beacon traffic from malicious IP.
+logsource:
+  category: proxy
+detection:
+  selection:
+    cs-host: '141.105.65.206'
+    c-uri: '/jquery-3.3.1.min.js'
+  condition: selection
+falsepositives:
+  - Unknown
+level: high
