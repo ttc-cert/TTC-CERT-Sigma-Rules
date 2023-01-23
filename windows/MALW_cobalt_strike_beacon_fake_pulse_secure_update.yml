@@ -1,0 +1,30 @@
+title: Fake Pulse Secure Update
+id: 365ce353-8cec-4237-9d38-44cb101b5e8c
+version: 1.0
+first_imported: 2023-01-23
+last_modified: 2023-01-23
+status: RELEASED
+sharing: TLP:CLEAR
+author: TTC-CERT
+description: Detects fake Pulse secure update which is Cobalt Strike beacon deployed by malicious PDF mimicking one of Thailand operators.
+category: Malware
+hash: ac0221a25162c259472ad3c5d4d31274fb14d8a14c8b0bbf4af015fbe0a113a7
+logsource:
+   category: process_creation
+   product: windows
+detection: 
+   selection1:
+      ParentImage|endswith: '\JuniperSetupClientInstaller.exe'
+      Image|endswith: '\powershell.exe'
+      CommandLine|contains|all:
+         - '-WindowStyle Hidden -ExecutionPolicy Bypass Add-MpPreference -ExclusionPath'
+         - '\AppData\Roaming'
+   selection2:
+      ParentImage|endswith: '\JuniperSetupClientInstaller.exe'
+      Image|endswith: '\schtasks.exe'
+      CommandLine|contains|all:
+         - '/create /tn nppupdate /V1 /tr'
+         - '\AppData\Roaming\Junipe.exe /sc onstart /ru system'
+   condition: selection1 and selection2
+falsepositives: Unknown
+level: high
