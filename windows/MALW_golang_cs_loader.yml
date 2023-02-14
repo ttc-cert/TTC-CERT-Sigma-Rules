@@ -1,0 +1,27 @@
+title: Golang Cobalt Strike Loader
+id: 52a0b8ef-50f3-4fb3-9d48-0b6eebacf254
+version: 1.1
+first_imported: 2023-01-13
+last_modified: 2023-01-13
+status: RELEASED
+sharing: TLP:CLEAR
+author: TTC-CERT
+description: Detect Golang Cobalt Strike Loader which use DLL Side-loading to load vcrunntime140.dll (cs loader)
+category: Malware
+hash: 44f37aaf003e9ff80504cf5c08b0a3ec663665fbcc4ec966ff2643653e1ea4e3
+logsource:
+   category: image_load
+   product: windows
+detection: 
+   # movie.exe side-loading vcruntime140.dll
+   selection1:
+      Image|endswith: '\movie.exe'
+      Image|contains: '\movie\'
+      ImageLoaded|endswith: '\vcruntime140.dll'
+   condition: selection1
+falsepositives: May detect DLL Side-loading which not related to Golang Cobalt Strike Loader
+level: high
+tags:
+   - attack.defense.evasion
+   - attack.t1218.007
+   - attack.t1574.002
