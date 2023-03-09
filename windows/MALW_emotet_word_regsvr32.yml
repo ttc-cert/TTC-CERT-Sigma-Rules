@@ -1,0 +1,29 @@
+title: Detection of Microsoft Word spawning regsvr32 child process
+id: f4416993-5733-4e8d-9e7b-91e44487b5d2
+version: "1.0"
+first_imported: "2023-03-09"
+last_modified: "2023-03-09"
+status: "RELEASED"
+sharing: "TLP:CLEAR"
+author: "TTC-CERT"
+description: Detects instances of Microsoft Word spawning regsvr32 child process
+category: "System Binary Proxy Execution: Regsvr32"
+tags:
+    - attack.t1197
+hash: "cb638551632b271c9993266834e78a2c9a64a4b9deb8590497b0901f1044e6ff"
+references:
+    - https://tria.ge/230309-jgzyysab2x
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        Image|endswith: '\WINWORD.EXE'
+        CommandLine|contains: '*\regsvr32.exe '
+    condition: selection
+fields:
+    - CommandLine
+    - ParentCommandLine
+falsepositives:
+    - Unknown
+level: high
