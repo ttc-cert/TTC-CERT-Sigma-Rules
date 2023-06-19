@@ -1,0 +1,31 @@
+title: Masqueraded OneDrive binary side-loading malicious DLL
+id: 5d204de0-42a0-4636-ad94-399489e15926
+version: 1.0
+first_imported: 2023-05-20
+last_modified: 2023-05-20
+status: RELEASED
+sharing: TLP:CLEAR
+author: TTC-CERT
+description: Detect masqueraded OneDrive binary using DLL side-loading technique to load malicious DLL (getopt.dll) and execute shellcode
+category: Malware
+hash: 19e48527fc761dbf6f5f894fe6fe41547c0e7309a9bdf5707359dab8091db573
+hash: 87b48238f429b2379f29af9e585cf33fc8ce130d7c9504e7190b053727748d6f
+hash: cb0a22c4ee2610692c4ec4aee1c9693829bb82aebe2a260e0a100f354e5ea1e0
+logsource:
+   category: image_load
+   product: windows
+detection: 
+   selection:
+      Image|endswith:
+          - 'OneDrive.exe'
+          - 'OneDriveStandaloneUpdater.exe'
+          - 'OneDriveSetup.exe'
+      ImageLoaded|endswith:
+          - '\getopt.dll'
+          - '\imobiledevice.dll'
+   condition: selection
+falsepositives: Unknown
+level: high
+tag:
+   - attack.defense.evasion
+   - attack.t1574.002
