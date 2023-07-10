@@ -1,0 +1,36 @@
+title: Detection of parent process spawning specific child processes
+id: 8a669ab2-62cb-4aba-9ab6-2f524f177f0b
+version: 1.0
+first_imported: 2023-07-10
+last_modified: 2023-07-10
+status: RELEASED
+sharing: TLP:CEAR
+author: TTC-CERT
+description: Detects the spawning of child processes with specified commands (such as cmd.exe with varying arguments) by the parent process Runtime Broker.exe.
+hash: 4a1a8db2a81905559da70381eb9a2e4062bc7cf644a0b46ea0aeeb0f7d4948fc
+references:
+  - https://www.virustotal.com/gui/file/4a1a8db2a81905559da70381eb9a2e4062bc7cf644a0b46ea0aeeb0f7d4948fc
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  parent_image:
+    ParentImage|endswith: '\Runtime Broker.exe'
+  image:
+    Image|endswith: '\cmd.exe'
+  command_1: 
+    CommandLine|contains: ' /d /s /c "chcp"'
+  command_2: 
+    CommandLine|contains: ' /d /s /c "tasklist"'
+  command_3: 
+    CommandLine|contains: ' /d /s /c "powershell Get-Clipboard"'
+  command_4: 
+    CommandLine|contains: ' /d /s /c "netsh lan show profiles"'
+  command_5: 
+    CommandLine|contains: ' /d /s /c "ipconfig /all"'
+  command_6: 
+    CommandLine|contains: ' /d /s /c "netstat -r"'
+  condition: parent_image and image and all of command_*
+falsepositives:
+    - Unknown
+level: high
