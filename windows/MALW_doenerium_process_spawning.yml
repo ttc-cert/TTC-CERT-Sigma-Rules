@@ -1,12 +1,12 @@
 title: Detection of parent process spawning specific child processes
 id: 8a669ab2-62cb-4aba-9ab6-2f524f177f0b
-version: 1.0
+version: 1.1
 first_imported: 2023-07-10
 last_modified: 2023-07-10
 status: RELEASED
 sharing: TLP:CEAR
 author: TTC-CERT
-description: Detects the spawning of child processes with specified commands (such as cmd.exe with varying arguments) by the parent process Runtime Broker.exe.
+description: Detects the spawning of child processes with specified commands (such as cmd.exe with varying arguments) by the parent process.
 hash: 4a1a8db2a81905559da70381eb9a2e4062bc7cf644a0b46ea0aeeb0f7d4948fc
 references:
   - https://www.virustotal.com/gui/file/4a1a8db2a81905559da70381eb9a2e4062bc7cf644a0b46ea0aeeb0f7d4948fc
@@ -15,7 +15,7 @@ logsource:
   category: process_creation
 detection:
   parent_image:
-    ParentImage|endswith: '\Runtime Broker.exe'
+    ParentImage|contains: '\AppData\Local\Temp\'
   image:
     Image|endswith: '\cmd.exe'
   command_1: 
