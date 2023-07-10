@@ -1,0 +1,37 @@
+title: Detecting Doenerium Infostealer Communication through Suspicious User Agents and Domains
+id: 241b6eb7-0ed8-4570-ad71-7041822fcd34
+version: 1.0
+first_imported: 2023-07-10
+last_modified: 2023-07-10
+status: RELEASED
+sharing: TLP:CLEAR
+author: TTC-CERT
+description: This rule triggers an alert if the proxy log shows traffic from Doenerium Infostealer communication through suspicious user agents and domains
+references:
+  - https://www.virustotal.com/gui/file/4a1a8db2a81905559da70381eb9a2e4062bc7cf644a0b46ea0aeeb0f7d4948fc
+logsource:
+    category: proxy
+detection:
+  selection_1:
+    cs-useragent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36 Edg/85.0.564.44'
+    cs-method: 'POST'
+    cs-host: 'gofile.io'
+  selection_2:
+    cs-useragent: 'axios/0.27.2'
+    cs-method: 'POST'
+    cs-host: 'doenerium.bbynetwork.nl'
+  selection_3:
+    cs-useragent: 'axios/0.27.2'
+    cs-method: 'GET'
+    cs-host: 'doenerium.kqnfkpoccicxiudstqonfotuwsrhuxkwhqjjfsbjhonoubrccy.nl'
+  condition: selection_1 and selection_2 and selection_3
+fields:
+    - ClientIP
+    - cs-useragent
+    - cs-host
+falsepositives:
+    - Unknown
+level: high
+tags:
+    - attack.command_and_control
+    - attack.t1071.001
