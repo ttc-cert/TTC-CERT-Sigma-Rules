@@ -1,8 +1,8 @@
 title: Detecting Doenerium Infostealer Communication through Suspicious User Agents and Domains
 id: 241b6eb7-0ed8-4570-ad71-7041822fcd34
-version: 1.0
+version: 1.1
 first_imported: 2023-07-10
-last_modified: 2023-07-10
+last_modified: 2023-07-11
 status: RELEASED
 sharing: TLP:CLEAR
 author: TTC-CERT, Sittikorn S
