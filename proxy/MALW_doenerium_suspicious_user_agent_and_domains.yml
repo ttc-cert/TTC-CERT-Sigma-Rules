@@ -5,7 +5,7 @@ first_imported: 2023-07-10
 last_modified: 2023-07-10
 status: RELEASED
 sharing: TLP:CLEAR
-author: TTC-CERT
+author: TTC-CERT, Sittikorn S
 description: This rule triggers an alert if the proxy log shows traffic from Doenerium Infostealer communication through suspicious user agents and domains
 references:
   - https://www.virustotal.com/gui/file/4a1a8db2a81905559da70381eb9a2e4062bc7cf644a0b46ea0aeeb0f7d4948fc
@@ -24,7 +24,11 @@ detection:
     cs-useragent: 'axios/0.27.2'
     cs-method: 'GET'
     cs-host: 'doenerium.kqnfkpoccicxiudstqonfotuwsrhuxkwhqjjfsbjhonoubrccy.nl'
-  condition: selection_1 and selection_2 and selection_3
+  selection_4:
+    cs-useragent: 'axios/0.27.2'
+    cs-method: 'POST'
+    cs-host: 'discord.com'
+  condition: selection_1 or selection_2 or selection_3 or selection_4
 fields:
     - ClientIP
     - cs-useragent
