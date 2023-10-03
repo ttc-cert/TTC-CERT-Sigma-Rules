@@ -1,0 +1,28 @@
+title: 'Mustang Panda LNK File Methodology'
+id: '512e1284-e0cf-45ae-bbb1-793408d87466'
+version: '1.0'
+first_imported: '2023-10-03'
+last_modified: '2023-10-03'
+sharing: 'TLP:CLEAR'
+author: 'TTC-CERT'
+description: 'The Mustang Panda threat group employs a methodological approach that utilizes LNK files to facilitate the deployment of a stager in the form of a Dynamic Link Library (DLL), subsequently executing it through the sophisticated DLL Side-loading technique.'
+category: 'Malware'
+logsource:
+   category: process_creation
+   product: windows
+detection: 
+   cmd:
+      Image|endswith: '\cmd.exe'
+      CommandLine|contains: 'wscript /E:JScript'
+   wscript:
+      ParentImage|endswith: '\wscript.exe'
+      ParentCommandLine|contains: '/E:JScript'
+      Image|endswith: '\powershell.exe'
+      CommandLine|contains: 'C:\Users\Public\Libraries\'
+   reg:
+      ParentImage|contains: 'C:\Users\Public\Libraries\'
+      Image|endswith: '\reg.exe'
+      CommandLine|contains: 'add HKCU\Software\Microsoft\Windows\CurrentVersion\Run'
+   condition: cmd and wscript and reg
+falsepositives: Unknown
+level: high
