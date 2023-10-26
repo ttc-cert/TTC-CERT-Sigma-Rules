@@ -1,0 +1,20 @@
+title: 'Detect Access to Google Favicon Service'
+id: '0e8aa20e-1602-4a22-90e7-cbfddd472c7e'
+version: '1.0'
+first_imported: '2023-10-16'
+last_modified: '2023-10-16'
+sharing: 'TLP:CLEAR'
+author: 'TTC-CERT'
+description: 'Identification of anomalous behavior associated with phishing attempts utilizing the Google API to acquire corporate favicon images.'
+category: 'Phishing'
+logsource:
+   category: proxy
+detection: 
+   selection:
+      c-uri: '*google.com/s2/favicons?domain=*'
+   condition: selection
+fields:
+   - c-ip
+   - c-uri
+falsepositives: Legitimate use of the Google Favicon service.
+level: low

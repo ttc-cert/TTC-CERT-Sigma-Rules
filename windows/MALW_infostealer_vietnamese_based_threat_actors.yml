@@ -1,0 +1,39 @@
+title: Python Infostealer malware used by Vietnamese-based threat actors 
+id: a61b1a34-c33f-4be0-8be0-bab1ea65df12
+version: 1.0
+first_imported: 2023-08-02
+last_modified: 2023-08-02
+status: RELEASED
+sharing: TLP:CLEAR
+author: TTC-CERT
+description: Detects Python Infostealer malware used by Vietnamese-based threat actors.
+category: Malware
+hash1: deed665bed5f04f95bb010f4b2094a56ffc9590001892cfa6d646705f22a1c99
+hash2: fe3f71cfdffdadcd2268cc3ddb66eed76ff0f0477164ee808c90c2d9768733f2
+hash3: 9bb86b277a49fc118ad3537308d9f66e4afcf7c5a34784ba7ece6e29a52c1a32
+hash4: 8e2cbf6771be53aa0a4b46f7eb35f47ce5c1db1a319773668f06b8f7f006820a
+hash5: 56cca76afbf69c38104bbb69c58b57a6f6e1ad58a9868252bd302d4b67deaee8
+hash6: f6795519be127bf19b8fc2b2a7116bb2b770cf31e9d2334a43f88c1843a11c16
+logsource:
+   category: process_creation
+   product: windows
+detection: 
+   parent_cmd:
+      ParentImage|endswith: '\cmd.exe'
+   selection1:
+      Image|endswith: '\curl.exe'
+      CommandLine|contains: 'curl https://sealingshop.click'
+   selection2:
+      Image|endswith: '\powershell.exe'
+      CommandLine|contains|all: 
+         - 'Invoke-WebRequest'
+         - '-windowstyle hidden'
+         - 'https://sealingshop.click'
+         - '\\Microsoft\\Windows\\Start Menu\\Programs\\Startup'
+   selection3:
+      Image|endswith: '\python.exe'
+      Image|contains: '\Public\python'
+      CommandLine|contains: '\Public\python'
+   condition: (parent_cmd and selection1) or selection2 or (parent_cmd and selection3)
+falsepositives: Unknown
+level: medium
