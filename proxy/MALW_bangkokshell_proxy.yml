@@ -1,0 +1,22 @@
+title: BangkokShell - RahadRAT call back to C2.
+id: ab5f08da-b48c-47f9-b645-78eaa5cf063f
+version: 1.0
+first_imported: 2023-10-23
+last_modified: 2023-10-23
+status: RELEASED
+sharing: TLP:GREEN
+author: TTC-CERT
+description: Detect RahadRAT calling back to its Command and Control (C2) server using the GET method with a IE6 WinXP's User-Agent. Since the C2 domain may change periodically, analyzing the outgoing network traffic with this specific User-Agent and request method, which connects to an unfamiliar domain outside the organization, may be able to identify the C2 callback in a BangkokShell operation.
+logsource:
+   category: proxy
+detection: 
+   selection:
+      cs-useragent: 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)'
+      cs-method: 'GET'
+   condition: selection
+fields:
+    - cs-ip
+    - cs-useragent
+    - cs-host
+falsepositives: Unknown
+level: high

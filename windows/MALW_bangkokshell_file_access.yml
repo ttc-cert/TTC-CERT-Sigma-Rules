@@ -1,0 +1,24 @@
+title: BangkokShell - Loader maps an obfuscated payload.
+id: 3ef9db67-7e2e-4944-bd78-979ec4724c1b
+version: 1.0
+first_imported: 2023-10-23
+last_modified: 2023-10-23
+status: RELEASED
+sharing: TLP:GREEN
+author: TTC-CERT
+description: Detect DLL Loader uses hardcoded full path to map an obfuscated payload into memory.
+category: Malware
+hash: 0b899508777d7ed5159e2a99a5eff60c54d0724493df3d630525b837fa43aa51 (Lightshot.exe)
+hash: 775656cb7af4f6718e0454efcf4b70576748f32780f8eb95f2faf108141d40c6 (Lightshot.dll)
+hash: 304bd37559c63b9bbb0c2ca4d8581c2e8bcc8bbfaa43f02c6bc69a922cf302b4 (Arials.ttf)
+logsource:
+   category: file_access
+   product: windows
+   definition: 'Requirements: Microsoft-Windows-Kernel-File ETW provider'
+detection: 
+   selection:
+      Image|endswith: '.exe'
+      FileName|contains: 'users\public\Arials.ttf'
+   condition: selection
+falsepositives: Unknown
+level: high
