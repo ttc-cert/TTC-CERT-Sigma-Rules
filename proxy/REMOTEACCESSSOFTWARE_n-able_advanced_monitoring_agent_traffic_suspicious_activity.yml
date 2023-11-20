@@ -1,0 +1,38 @@
+title: 'Detect N-Able Advanced Monitoring Agent Network Traffic'
+id: '658d7e60-4bae-4b5f-a0ff-9c3c3edbb48a'
+version: '1.0'
+first_imported: '2023-11-20'
+last_modified: '2023-11-20'
+sharing: 'TLP:CLEAR'
+author: 'TTC-CERT'
+description: 'Detects network traffic related to N-Able Advanced Monitoring Agent.'
+references: 'https://www.n-able.com/'
+logsource:
+    category: proxy
+detection:
+    selection1:
+      c-useragent|contains: 'Advanced Monitoring Agent '
+      cs-method: 'POST'
+      c-uri: '/command/agentprocessor_v2.php'
+      cs-host:
+          - 'upload1asia.system-monitor.com'
+          - 'upload2asia.system-monitor.com'
+          - 'upload3asia.system-monitor.com'
+          - 'upload4asia.system-monitor.com'
+    selection2:
+        c-useragent|contains: 'Advanced Monitoring Agent '
+        cs-method: 'GET'
+        cs-host: 'rm-downloads-apac.logicnow.com'
+    selection3:
+        c-useragent|contains: 'Advanced Monitoring Agent '
+        cs-host|contains:
+            - '.am.remote.management'
+            - '.system-monitor.com'
+            - '.systemmonitor.eu.com'
+            - '.systemmonitor.co.uk'
+            - '.systemmonitor.us'
+            - '.logicnow.com'
+            - '.logicnow.us'
+    condition: selection1 or selection2 or selection3
+falsepositives: 'This rule may trigger false positives if the N-Able Advanced Monitoring Agent processes or services are running on a host for legitimate purposes.'
+level: high
