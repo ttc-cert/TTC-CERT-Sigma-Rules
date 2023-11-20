@@ -1,0 +1,28 @@
+title: 'Detect N-Able Advanced Monitoring Agent Installation'
+id: '341c502a-0863-4b42-b052-e39d81633162'
+version: '1.0'
+first_imported: '2023-11-20'
+last_modified: '2023-11-20'
+sharing: 'TLP:CLEAR'
+author: 'TTC-CERT'
+description: 'Detects the installation of N-Able Advanced Monitoring Agent based on process creation.'
+references: 'https://www.n-able.com/'
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection1:
+    Image|endswith: '\winagent.exe'
+    CommandLine|contains: ' /autoinstall'
+  selection2:
+    Image|endswith: '\agent.exe'
+    CommandLine|contains: ' /VERYSILENT /norestart'
+  selection3:
+    Image|endswith: '\unzip.exe'
+    CommandLine|contains: ' package.zip'
+  selection4:
+    Image|endswith: '\winagent.exe'
+    CommandLine|contains: ' /configure'
+  condition: selection1 and selection2 and selection3 and selection4
+falsepositives: 'This rule may trigger false positives if the N-Able Advanced Monitoring Agent processes or services are running on a host for legitimate purposes.'
+level: high
