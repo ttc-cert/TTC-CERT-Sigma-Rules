@@ -1,0 +1,30 @@
+title: 'DNS Lookup for TXT Record to 194.233.64.40'
+id: '81b0a28b-7caf-442d-9872-f7fdc0b582a7'
+version: '1.0'
+first_imported: '2024-03-26'
+last_modified: '2024-03-26'
+sharing: 'TLP:CLEAR'
+author: 'TTC-CERT'
+description: 'Detects DNS lookup for a Text (TXT) record to IP address 194.233.64.40'
+references: 'https://www.virustotal.com/gui/file/bb1b01978148310192d46aecf0fbca9b1cd57043250f8eafd1d316730518ffc2/'
+status: 'experimental'
+logsource:
+    category: dns
+detection:
+    selection:
+        query|contains: '.truecorps.co.th'
+        type: 'TXT'
+        dst_ip: '194.233.64.40'
+    condition: selection
+fields:
+    - query
+    - type
+    - dst_ip
+falsepositives:
+    - Legitimate DNS lookups
+level: low
+tags:
+    - attack.command_and_control
+    - attack.t1071.004
+    - attack.exfiltration
+    - attack.t1048.003
